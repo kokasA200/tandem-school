@@ -1,6 +1,32 @@
+server:
+  port: 9055
+
 spring:
   application:
     name: teacher-service
+
+    resource-url: http://localhost:8080/realms/tandem/protocol/openid-connect/token
+
+
+    security:
+      oauth2:
+        client:
+        registration:
+          keycloak:
+            client-id: teacher-client # УБЕДИТЕСЬ, ЧТО ЭТО ПРАВИЛЬНЫЙ CLIENT ID В KEYCLOAK
+            client-secret: U18g2J555hbLPRxyWBYLX13ujGHbLcMq # УБЕДИТЕСЬ, ЧТО ЭТО ПРАВИЛЬНЫЙ СЕКРЕТ
+            client-authentication-method: client_secret_basic
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope: openid,profile,email
+            client-name: Keycloak
+
+      provider: # <-- ПЕРЕМЕЩЕНО НА ПРАВИЛЬНЫЙ УРОВЕНЬ
+        keycloak:
+          issuer-uri: http://localhost:8080/realms/tandem # УБЕДИТЕСЬ, ЧТО ЭТО ПРАВИЛЬНЫЙ REALM В KEYCLOAK
+          user-name-attribute: preferred_username
+
+
 
   datasource:
     url: jdbc:postgresql://localhost:5433/postDb
@@ -16,20 +42,14 @@ spring:
       hibernate:
         format_sql: true
 
-server:
-  port: 8080
 
 logging:
   level:
-    root: INFO
+    root: info
     org.springframework: INFO
     org.hibernate: INFO
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-
-
-
-
-
-
+    org.springframework.security: DEBUG # КРИТИЧНО для отладки
+    org.keycloak: DEBUG
 
