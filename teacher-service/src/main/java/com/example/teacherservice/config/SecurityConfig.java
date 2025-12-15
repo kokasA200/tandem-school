@@ -22,7 +22,9 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(
                         auth -> auth.requestMatchers("/auth").permitAll()
-                                .requestMatchers("/api/all").hasRole("admin")
+                                .requestMatchers("/studentApi").hasRole("TEACHER")
+                                .requestMatchers("/gradeApi").hasRole("TEACHER")
+                                .requestMatchers("/scheduleApi").hasRole("HEADTEACHER")
                                 .anyRequest().authenticated()
                 ).sessionManagement(
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -36,11 +38,37 @@ public class SecurityConfig {
                 .build();
     }
 
-    @Bean // <-- ОБЯЗАТЕЛЬНО, чтобы Spring мог управлять этим бином
+    @Bean
     public Converter<Jwt, ? extends AbstractAuthenticationToken> keycloakAuthConverter() {
         var converter = new JwtAuthenticationConverter();
         converter.setJwtGrantedAuthoritiesConverter(new KeycloakJwtAuthenticationConverter());
         return converter;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

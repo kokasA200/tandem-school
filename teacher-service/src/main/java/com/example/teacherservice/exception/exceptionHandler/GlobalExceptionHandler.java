@@ -93,6 +93,21 @@ public class GlobalExceptionHandler {
 
 
 
+    @ExceptionHandler(DateNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleStudentNotFoundException(
+            DateNotFoundException ex, HttpServletRequest request) {
+        HttpStatus httpStatus = HttpStatus.NOT_FOUND;
+        ErrorResponse errorResponse = new ErrorResponse(
+                LocalDateTime.now(),
+                httpStatus.value(),
+                httpStatus.getReasonPhrase(),
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(httpStatus).body(errorResponse);
+    }
+
+
 
 
 

@@ -1,13 +1,9 @@
 package com.example.teacherservice.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -40,5 +36,6 @@ public class Grade {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "date_id")
     private Date day;
+
 
 }

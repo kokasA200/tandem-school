@@ -5,26 +5,39 @@ spring:
   application:
     name: teacher-service
 
-    resource-url: http://localhost:8080/realms/tandem/protocol/openid-connect/token
+
+
+
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        acks: "all"
+        retries: 5
+        enable.idempotence: true
 
 
     security:
       oauth2:
         client:
-        registration:
-          keycloak:
-            client-id: teacher-client # УБЕДИТЕСЬ, ЧТО ЭТО ПРАВИЛЬНЫЙ CLIENT ID В KEYCLOAK
-            client-secret: U18g2J555hbLPRxyWBYLX13ujGHbLcMq # УБЕДИТЕСЬ, ЧТО ЭТО ПРАВИЛЬНЫЙ СЕКРЕТ
-            client-authentication-method: client_secret_basic
-            authorization-grant-type: authorization_code
-            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
-            scope: openid,profile,email
-            client-name: Keycloak
+          registration:
+            keycloak:
+              token-uri: http://localhost:8080/realms/tandem/protocol/openid-connect/token
+              client-id: teacher-client
+              client-secret: U18g2J555hbLPRxyWBYLX13ujGHbLcMq
+              client-authentication-method: client_secret_basic
+              authorization-grant-type: authorization_code
+              redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+              scope: openid,profile,email
+              client-name: Keycloak
 
-      provider: # <-- ПЕРЕМЕЩЕНО НА ПРАВИЛЬНЫЙ УРОВЕНЬ
-        keycloak:
-          issuer-uri: http://localhost:8080/realms/tandem # УБЕДИТЕСЬ, ЧТО ЭТО ПРАВИЛЬНЫЙ REALM В KEYCLOAK
-          user-name-attribute: preferred_username
+    provider:
+      keycloak:
+        issuer-uri: http://localhost:8080/realms/tandem
+        user-name-attribute: preferred_username
 
 
 
@@ -45,7 +58,7 @@ spring:
 
 logging:
   level:
-    root: info
+    root: DEBUG
     org.springframework: INFO
     org.hibernate: INFO
     org.hibernate.SQL: DEBUG
@@ -53,3 +66,6 @@ logging:
     org.springframework.security: DEBUG # КРИТИЧНО для отладки
     org.keycloak: DEBUG
 
+kafka:
+  topic:
+    name: GradeTopic

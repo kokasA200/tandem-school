@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -17,6 +19,10 @@ public class Date {
 
     @Column(name = "day")
     private int day;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subject_id")
+    private List<Subject> subjects;
 
 
 
