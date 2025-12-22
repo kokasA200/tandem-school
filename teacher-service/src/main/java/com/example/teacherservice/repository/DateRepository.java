@@ -11,5 +11,5 @@ public interface DateRepository extends JpaRepository<Date, Long> {
 
     Optional<Date> findByDay(int day);
 
-    List<Subject> getSubjectsByDate(int day);
+//    List<Subject> getSubjectsByDate(int day);
 }

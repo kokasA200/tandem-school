@@ -11,19 +11,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@Setter
 @RestController
 public class AuthController {
 
-    private final KeycloakAuthClient keycloakAuthClient;
+    private KeycloakAuthClient keycloakAuthClient;
 
-    @Value("${spring.security.oauth2.client.registration.keycloak.client-id}")
+    @Value("${spring.application.security.oauth2.client.registration.keycloak.client-id}")
     private String clientId;
 
-    @Value("${spring.security.oauth2.client.registration.keycloak.authorization-grant-type}")
+    @Value("${spring.application.security.oauth2.client.registration.keycloak.authorization-grant-type}")
     private String grantType;
 
-    @Value("${spring.application.security.oauth2.registration.keycloak.client-secret}")
+    @Value("${spring.application.security.oauth2.client.registration.keycloak.client-secret}")
     private String clientSecret;
 
     public AuthController(KeycloakAuthClient keycloakAuthClient) {

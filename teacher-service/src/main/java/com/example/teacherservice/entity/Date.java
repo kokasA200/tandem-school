@@ -20,9 +20,9 @@ public class Date {
     @Column(name = "day")
     private int day;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subject_id")
-    private List<Subject> subjects;
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "subject_id")
+//    private List<Subject> subjects;
 
 
 

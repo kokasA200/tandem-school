@@ -72,9 +72,6 @@ public class GradeService {
 //    }
 
 
-
-
-
     public List<SubjectGradeDto> getGradesWithSubjects(String name, String surname, int day) {
         Student student = studentRepository.findByNameAndSurname(name, surname)
                 .orElseThrow(() -> new StudentNotFoundException("Student not found"));
@@ -88,11 +85,6 @@ public class GradeService {
                 .map(grade -> new SubjectGradeDto(grade.getSubject().getName(), grade.getGrade()))
                 .collect(Collectors.toList());
     }
-
-
-
-
-
 
 
     public Map<String, List<SubjectGradeDto>> getAllStudentsGradesForDay(int day) {
@@ -110,15 +102,6 @@ public class GradeService {
                         )
                 ));
     }
-
-
-
-
-
-
-
-
-
 
 }
 

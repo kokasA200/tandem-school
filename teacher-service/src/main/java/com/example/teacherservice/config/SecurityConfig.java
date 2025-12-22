@@ -21,7 +21,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(
-                        auth -> auth.requestMatchers("/auth").permitAll()
+                        auth -> auth.requestMatchers(
+                                        "/auth",
+                                        "/v3/api-docs/**",
+                                        "/swagger-ui/**",
+                                        "/swagger-ui.html").permitAll()
                                 .requestMatchers("/studentApi").hasRole("TEACHER")
                                 .requestMatchers("/gradeApi").hasRole("TEACHER")
                                 .requestMatchers("/scheduleApi").hasRole("HEADTEACHER")

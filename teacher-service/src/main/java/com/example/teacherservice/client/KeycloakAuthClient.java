@@ -5,7 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "keycloakAuthClient", url = "${spring.application.security.oauth2.registration.keycloak.token-uri}")
+@FeignClient(name = "keycloakAuthClient", url = "${spring.application.token-uri}")
 public interface KeycloakAuthClient {
 
     @PostMapping(value = "/token", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
